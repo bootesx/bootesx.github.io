@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+  <head> 
+	<meta charset="UTF-8"> 
+	<meta name="viewport" id="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript" src="../js/jquery-3.5.1.js"></script>
+    <script type="text/javascript" src="../js/sub.js"></script>  
+    <link rel="stylesheet" type="text/css" href="../css/qc.css"/> 
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+	<link rel="shortcut icon" href="../favicon.png" type="image/x-icon" />
+    <script>
+     function kt()
+      {
+       a=Math.floor(Math.random()*900+100);
+       b=Math.floor(Math.random()*900+100); 
+       document.getElementById("qt").innerHTML="<div class=\"qu\">"+a+"-"+b+"=</div>";
+       cl();
+      }
+    </script>
+    <style>
+.st {
+    width:133px;
+}
+    </style>
+  </head> 
+  <body>
+    <div id="qt" onclick="kt()" class="st">开始</div>
+    <input id="an" type="text" class="ip" placeholder="在此处填写答案">
+    <button onclick="mt()" class="b1">确认</button>
+    <strong id="aa" class="jd"></strong>
+    <button onclick="kt()" class="b2">下一题</button>   
+    <button onclick="ww()" class="b3">提交</button>   
+    <div class="bo">
+    <b class="co">正确: </b>
+    <b id="cv" class="co">0</b>
+    <b class="w1">错误: </b>
+    <b id="cw" class="w2">0</b>
+    </div>
+  </body>
+</html>
