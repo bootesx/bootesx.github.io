@@ -1,0 +1,192 @@
+<!DOCTYPE HTML>
+<html>
+   <head>
+   <meta charset="utf-8">
+   <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1">
+   <title>test</title>
+   <style>
+.button {
+	background-color: #F6F6F6;
+	border: none;
+	color: #5F904F;
+	padding: 9px 18px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 27px;
+	margin: 10px 0px;
+	cursor: pointer;
+	border-radius: 5px;
+    font-weight:580;
+    position: relative;
+    float: right;
+}
+.button2 {
+	background-color: #F6F6F6;
+	border: none;
+	color: #5F904F;
+    position: relative;
+	padding: 8px 16px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 15px;
+	margin: 5px;
+	cursor: pointer;
+	border-radius: 5px;
+    font-weight:580;
+}
+.ip {
+    height:46px;
+    width: 270px;
+    color:#666666;
+    background-color:#F7F7F7;
+    font-size:28px;
+    font-weight:400;
+    position: relative;
+    margin-left: 0px;
+    margin-top: 10px;
+    padding-left:5px;
+    outline:none;
+    border-style:solid;
+    border-width:1px;  
+    border-radius:6px;
+    border-color:#2B9148;
+    float: left;
+}
+.ou {
+    overflow: scroll;
+    position: relative;
+    height: 50%;
+    width: 97%;
+    margin: 5px 0px;
+    background-color: #ffffff;
+    padding: 5px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #aaaaaa;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+    </style>
+      <script type="text/javascript">
+         var ws;
+         function load()
+         {
+             if ("WebSocket" in window)
+             {
+                 // alert("您的浏览器支持 WebSocket!")
+             }
+             else
+             {
+                 // 浏览器不支持 WebSocket
+                 alert("您的浏览器不支持 WebSocket!");
+             }
+         }
+         function connect()
+         {
+             var bi=document.getElementById("con");
+             var ms=bi.innerText;
+             if (ms == "连接")
+             {
+                 if ("WebSocket" in window)
+                 {
+                     // 打开一个 web socket
+                     var ws = new WebSocket("ws://jp-tyo-dvm-2.sakurafrp.com:59367");
+                     // ws = new WebSocket("ws://127.0.0.1:8899");
+                     ws.onopen = function()
+                     {
+                         // Web Socket 已连接
+                         bi.innerText="断开";
+                         alert("已连接！");
+                     };
+                     ws.onclose = function()
+                     { 
+                         // 关闭 websocket
+                         alert("无法连接");
+                         bi.innerText="连接";
+                     };
+                 }
+                 else
+                 {
+                     // 浏览器不支持 WebSocket
+                     alert("您的浏览器不支持 WebSocket!");
+                 }
+             }
+             else if(ms == "断开")
+             {
+                 if ("WebSocket" in window)
+                 {
+                     // 使用 send() 方法发送数据
+                     ws.send("#?close");
+                     ws.onclose = function()
+                     { 
+                         // 关闭 websocket
+                         bi.innerText="连接";
+                         alert("连接已关闭..."); 
+                     };
+                 }
+                 else
+                 {
+                     // 浏览器不支持 WebSocket
+                     alert("您的浏览器不支持 WebSocket!");
+                 }
+             }
+         }
+         function WebSocketTest()
+         {
+             var c=document.getElementById("ms");
+             var msg=c.value;
+             c.value="";
+             var bi=document.getElementById("con");
+             var ms=bi.innerText;
+             if (ms=="连接")
+             {
+                 alert("未连接");
+             }
+             else
+             {
+                 // 使用 send() 方法发送数据
+                 ws.send("#!"+msg);
+                 ws.onerror = function (err)
+                 {
+                     alert(err.data);
+                 }
+                 // alert("数据发送中...");
+                 var omd=document.getElementById("ch");
+                 var omsd=omd.innerText;
+                 omd.innerText=omsd+"[me] "+msg+"\n";
+                 ws.onmessage = function (evt) 
+                 { 
+                     var received_msg = evt.data;
+                     if (received_msg.substring(0,1)=="#")
+                     {
+                         var om=document.getElementById("ch");
+                         var oms=om.innerText;
+                         om.innerText=oms+"[server] "+received_msg.substring(1,received_msg.length)+"\n";
+                         om.scrollTop+=100;
+                         // alert("数据已接收...");
+                     }
+                 };
+                 ws.onclose = function()
+                 { 
+                     // 关闭 websocket
+                     alert("连接已关闭..."); 
+                 };
+             }
+         }
+      </script>
+   </head>
+   <body onload="load()" style="position: absolute; height: 95%; width: 95%;">
+      <div>
+          <button id="con" class="button2" onclick="connect()">连接</button>
+      </div>
+      <div id="ch" class="ou"></div>
+      <div>
+          <input id="ms" class="ip" type="text" placeholder="">
+      </div>
+      <div id="sse">
+          <button class="button" onclick="javascript:WebSocketTest()">send</button>
+      </div>   
+   </body>
+</html>
