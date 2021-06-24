@@ -1,6 +1,7 @@
 {
-    "version": "1.0",
-    "content": "hello\nworld\naaa",
+    "versionCode": 1,
+    "versionName": "1.0",
+    "contents": "hello\nworld\naaa",
     "url": "",
     "force": true,
     "push": true
