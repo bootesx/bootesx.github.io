@@ -1,1 +1,7 @@
-{"version":1.0,"content":"hello\nworld\naaa","force":true,"push":true}
+{
+    "version": "1.0",
+    "content": "hello\nworld\naaa",
+    "url": "",
+    "force": true,
+    "push": true
+}
