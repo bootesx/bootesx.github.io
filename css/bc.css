@@ -1,7 +1,6 @@
-body
-{   
+body {
     background-color:#F7F7F7;
-}   
+}
 .button {
     background-color:#FFFFFF;
     border: none;
@@ -17,12 +16,12 @@ body
     font-family:xm;
     margin-top:13px;
     cursor: pointer;
-}   
-.ca {    
+}
+.ca {
     font-size:35px;
     font-family:xmx;
     color:#303030;
     margin-left:10px;
     margin-top:20px;
-}   
+}
 @import url(style.css);
